@@ -30,23 +30,22 @@ var newTitle = title + issue + separator1 + year + separator2 + numbering; // ->
 
 var filenames = ["CenT_No55_01", "CenT_No55_02", "CenT_No55_03", "CenT_No55_04", "CenT_No55_05", "CenT_No55_06", "CenT_No55_07", "CenT_No55_08", "CenT_No55_09", "CenT_No55_10", "CenT_No55_11", "CenT_No55_12"];
 
-var newArray = [];
-
 function rename(array, year) {
-  // Set general variables
+
   var title = "cinemaentheater"
+
   // Get numbering from first element in array (since it's the same in all the elements)
   var issueNo = /[0-9]{2}/; // Set regex
   var numbering = array[0].match(issueNo); // Actually pull out number
   var separator1 = "-";
   var separator2 = "_"
-  // Construct elements of newArray from old
-  for (var i = 0; i < array.length; i++) {
-    var newElement = title + numbering + separator1 + year + separator2 + array[i].substr(array[i].length - 2);
-    console.log(newElement); // Just for checking
-    // Add to newArray
-    newArray.push(newElement);
-  }
-  // return newArray;
-  console.log(newArray);
+
+  var newArray = array.map(function(item) {
+    return title + numbering + separator1 + year + separator2 + item.substr(item.length - 2)
+  })
+
+  return newArray;
+  // console.log(newArray);
 }
+
+rename(filenames, 1922)
