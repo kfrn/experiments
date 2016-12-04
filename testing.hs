@@ -15,6 +15,8 @@ lettersOnly str = [ x | x <- str, x `elem` ['a'..'z'] ]
 factorial x = product [1..x]
 -- factorial 5 => 120
 
+getSunburn :: Int -> String
+-- getSunburn :: (Integral a) => a -> String   -- This also works but is less specific
 getSunburn mins
       | mins <= 5 = "UV ray exposure not too much!"
       | mins <= 10 = "Still not too much UV exposure"
@@ -23,6 +25,7 @@ getSunburn mins
       | otherwise = "Careful! Put on some sunblock!"
 -- getSunburn 22 => "Careful! Put on some sunblock!"
 
+getMax :: (Ord a) => [a] -> a
 getMax [] = error "Empty list"
 getMax [x] = x
 getMax (x:xs) = max x (getMax xs)
