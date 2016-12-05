@@ -14,12 +14,92 @@ svg.selectAll('rect')
 svg.selectAll('circle')
     .data(dataArray)
     .enter().append('circle')
-              .attr('cx', (d, i) => 300 + (i * 60))
+              .attr('class', 'first')
+              .attr('cx', (d, i) => 100 + (i * 80))
               .attr('cy', '100')
               .attr('r', (d) => d/2)
 
-// // Lynda sample code
-//
+
+var secondArray = [7, 12, 17]
+var newX = 300
+svg.selectAll('ellipse')
+    .data(secondArray)
+    .enter().append('ellipse')
+              .attr('class', 'second')
+              .attr('cx', (d, i) => { newX += (d*3)+(i*10); return newX })
+              .attr('cy', '200')
+              .attr('rx', (d) => d)
+              .attr('ry', (d) => d*2)
+
+var newerX = 600
+svg.selectAll('line')
+    .data(secondArray)
+    .enter().append('line')
+              .attr('class', 'third')
+              .attr('x1', newerX)
+              .attr('y1', (d, i) => 80 + (i*20))
+              .attr('x2', (d) => newerX + d*15)
+              .attr('y2', (d, i) => 80 + (i*20))
+              // STYLING LINES
+              // 1. Add direct property
+              // .attr('stroke', 'blue')
+              // .attr('stroke-width', '2')
+              // 2. Add style. This has precedence, but is not recommended
+              // .style('stroke', 'green')
+              // 3. Style with CSS. Second precedence. Best practice!
+
+// Manual text
+// svg.append('text')
+//       .attr('x', newerX)
+//       .attr('y', '200')
+//       .attr('fill', 'none') // can use pretty much any CSS styling as attrs.
+//       .attr('stroke', 'blue')
+//       .attr('stroke-width', '2')
+//       .attr('dominant-baseline', 'middle') // align vertically
+//       .attr('text-anchor', 'start') // align horizontally
+//       .attr('font-size', '30')
+//       .text('kia ora!')
+// svg.append('text')
+//       .attr('x', newerX)
+//       .attr('y', '240')
+//       .attr('fill', 'blue')
+//       .attr('stroke', 'none')
+//       .attr('dominant-baseline', 'middle')
+//       .attr('text-anchor', 'middle')
+//       .attr('font-size', '30')
+//       .text('tena koutou!')
+// svg.append('text')
+//       .attr('x', newerX)
+//       .attr('y', '280')
+//       .attr('stroke', 'blue')
+//       .attr('fill', 'none')
+//       .attr('dominant-baseline', 'middle')
+//       .attr('text-anchor', 'end')
+//       .attr('font-size', '30')
+//       .text('haere ra')
+// svg.append('line')
+//       .attr('x1', newerX)
+//       .attr('y1', 200)
+//       .attr('x2', newerX)
+//       .attr('y2', 280)
+
+// Add all text in one block of code
+var textArray = ['kia ora!', 'tena koutou', 'haere ra']
+
+svg.append('text').selectAll('tspan')
+    .data(textArray)
+    .enter().append('tspan')
+      .attr('x', newerX)
+      .attr('y', (d, i) => 150 + (i*30))
+      .attr('fill', 'blue') // can use pretty much any CSS styling as attrs.
+      .attr('dominant-baseline', 'middle') // align vertically
+      .attr('text-anchor', 'start') // align horizontally
+      .attr('font-size', '30')
+      .text( (d) => d )
+
+
+// Lynda sample code
+
 // var dataArray = [5,11,18]
 //
 // var svg = d3.select("body").append("svg").attr("height","100%").attr("width","100%")
@@ -32,3 +112,11 @@ svg.selectAll('circle')
 //                 .attr("fill","pink")
 //                 .attr("x",function(d,i){ return 60*i; })
 //                 .attr("y",function(d,i){ return 300-(d) });
+//
+// var newX = 300;
+// svg.selectAll("circle")
+//       .data(dataArray)
+//       .enter().append("circle")
+//                 .attr("cx",function(d,i){ newX+=(d*3)+(i*20); return newX; }) // changing multiplier of d changes width (how close together)
+//                 .attr("cy","80")
+//                 .attr("r",function(d){ return d*3; })
