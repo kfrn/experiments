@@ -3,9 +3,22 @@ var dataDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', "Friday", 'Saturda
 
 var svg = d3.select('body').append('svg').attr('height', '800px').attr('width', '100%')
 
-var x = d3.scaleOrdinal()
+// var x = d3.scalePoint()
+//             .domain(dataDays)
+//             .range([25, 320]) // pixel values
+
+var rainbow = d3.scaleSequential(d3.interpolateRainbow) // supply algorithm, i.e. interpolateRainbow
+                  .domain([0, 6]) // no .range() needed
+
+var rainbow2 = d3.scaleSequential(d3.interpolateRainbow)
+                  .domain([0, 6])
+
+var cat20 = d3.schemeCategory20
+
+var x = d3.scaleBand()
             .domain(dataDays)
-            .range([30, 90, 150, 210, 270, 330])
+            .range([20, 330]) // pixel values
+            .paddingInner(0.71) // % of chart devoted to whitespace
 
 var xAxis = d3.axisBottom(x)
 
@@ -16,7 +29,7 @@ svg.selectAll('rect')
               .attr('width', '50') // Default units are pixels
               .attr('x', function (d, i) { return  60 * i }) // Positions rectangle horizontally. Needs dynamic value - function. d = data point. i = index. 77,0 ; 36,1 ; 48,2 ; etc
               .attr('y', function (d) { return 600 - d*5 }) // Working from top; needs to be inverted from regular value (e.g. 300)
-              .attr('fill', 'blue')
+              .attr('fill', (d, i) => rainbow(i))
 
 svg.append('g')
     .attr('class', 'x axis hidden')
@@ -28,6 +41,7 @@ svg.selectAll('circle')
     .data(dataArray)
     .enter().append('circle')
               .attr('class', 'first')
+              .attr('fill', (d, i) => rainbow2(i))
               .attr('cx', (d, i) => 100 + (i * 80))
               .attr('cy', '100')
               .attr('r', (d) => d/2)
@@ -40,6 +54,7 @@ svg.selectAll('ellipse')
     .enter().append('ellipse')
               .attr('class', 'second')
               .attr('cx', (d, i) => { newX += (d*3)+(i*10); return newX })
+              .attr('fill', (d, i) => cat20[i])
               .attr('cy', '200')
               .attr('rx', (d) => d)
               .attr('ry', (d) => d*2)
