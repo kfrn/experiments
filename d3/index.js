@@ -1,6 +1,13 @@
 var dataArray = [77, 36, 48, 25, 65, 47]
+var dataDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', "Friday", 'Saturday']
 
 var svg = d3.select('body').append('svg').attr('height', '800px').attr('width', '100%')
+
+var x = d3.scaleOrdinal()
+            .domain(dataDays)
+            .range([30, 90, 150, 210, 270, 330])
+
+var xAxis = d3.axisBottom(x)
 
 svg.selectAll('rect')
     .data(dataArray) // Binds dataArray to selection. If there were three rects, respectively linked to 77, 36, 48
@@ -10,6 +17,12 @@ svg.selectAll('rect')
               .attr('x', function (d, i) { return  60 * i }) // Positions rectangle horizontally. Needs dynamic value - function. d = data point. i = index. 77,0 ; 36,1 ; 48,2 ; etc
               .attr('y', function (d) { return 600 - d*5 }) // Working from top; needs to be inverted from regular value (e.g. 300)
               .attr('fill', 'blue')
+
+svg.append('g')
+    .attr('class', 'x axis hidden')
+    .attr('transform', 'translate(0, 600)')
+    .call(xAxis)
+
 
 svg.selectAll('circle')
     .data(dataArray)
