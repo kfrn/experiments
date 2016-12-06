@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voronoi YEEAHHHHHH</title>
+    <script type="text/javascript" src='./d3.v4.4.js'></script>
+    <style>
+      g.polygons path {
+        fill: white;
+        stroke: #ff9100;
+      }
+
+      g.petrolstn circle {
+        fill: steelblue;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" >
+
+      var width = 960
+      var height = 500
+
+      // var vertices = d3.range(100) // Creates array with 100 elems, in order
+      var vertices = d3.range(100).map( (d) => [Math.random()*width, Math.random()*height] ) // Create array of x,y vals
+
+      var voronoi = d3.voronoi().size([width, height])
+
+      var svg = d3.select('body').append('svg').attr('width', '100%').attr('height', '600')
+
+      svg.append('g').attr('class', 'polygons')
+            .selectAll('path')
+                .data(voronoi.polygons(vertices)) // D3 magic! It knows how to make polygones.
+                .enter().append('path')
+                            .attr('d', (d) => 'M'+d.join('L')+'Z' )
+
+      svg.append('g').attr('class', 'petrolstn') // g for group
+            .selectAll('circle')
+                .data(vertices)
+                .enter().append('circle')
+                            .attr('cx', (d) => d[0] )
+                            .attr('cy', (d) => d[1] )
+                            .attr('r', '3')
+
+
+    </script>
+  </body>
+</html>

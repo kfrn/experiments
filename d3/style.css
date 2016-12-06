@@ -20,3 +20,9 @@ g.hidden line,
 g.hidden path {
   display: none;
 }
+
+path {
+  stroke: green;
+  stroke-width: 2px;
+  fill: none;
+}
