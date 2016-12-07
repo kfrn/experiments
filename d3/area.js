@@ -1,3 +1,5 @@
+// LIne chart!
+
 var dataArray = [45, 67, 34, 56, 23, 88, 55, 67, 47, 78, 83, 73, 34, 55, 69, 50, 81]
 var dataYears = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
 
@@ -7,7 +9,7 @@ console.log(d3.extent(dataYears, (d) => parseDate(d))) // gives min and max
 
 
 var height = 200
-var width = 500
+var width = 800
 
 var margin = {left: 50, right: 50, top: 40, bottom: 0}
 

@@ -12,7 +12,7 @@
         stroke: #ff9100;
       }
 
-      g.petrolstn circle {
+      g.dots circle {
         fill: steelblue;
       }
 
@@ -25,7 +25,6 @@
       var width = 960
       var height = 500
 
-      // var vertices = d3.range(100) // Creates array with 100 elems, in order
       var vertices = d3.range(100).map( (d) => [Math.random()*width, Math.random()*height] ) // Create array of x,y vals
 
       var voronoi = d3.voronoi().size([width, height])
@@ -38,7 +37,7 @@
                 .enter().append('path')
                             .attr('d', (d) => 'M'+d.join('L')+'Z' )
 
-      svg.append('g').attr('class', 'petrolstn') // g for group
+      svg.append('g').attr('class', 'dots') // g for group
             .selectAll('circle')
                 .data(vertices)
                 .enter().append('circle')

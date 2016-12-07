@@ -2,7 +2,7 @@ var dataArray = [{x:5,y:4},{x:7,y:8},{x:8,y:4},{x:11,y:6},{x:15,y:8},{x:16,y:7}]
 
 var interpolateTypes = [d3.curveLinear, d3.curveNatural, d3.curveStep, d3.curveBasis, d3.curveBundle, d3.curveCardinal]
 
-var svg = d3.select('body').append('svg').attr('width', '960').attr('height', '960')
+var svg = d3.select('body').append('svg').attr('width', '960').attr('height', '1260')
 
 
 for (var p = 0; p < interpolateTypes.length; p++) {
