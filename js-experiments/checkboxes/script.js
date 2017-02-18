@@ -10,7 +10,7 @@ function handleCheck(e) {
       console.log(checkbox);
       if (checkbox === this || checkbox === lastChecked) {
         inBetween = !inBetween // to allow both directions
-        console.log("starting/ending checkbox check");
+        console.log("starting/ending check");
       }
 
       if (inBetween) {
@@ -18,7 +18,7 @@ function handleCheck(e) {
       }
     })
   }
-  lackChecked = this
+  lastChecked = this
 }
 
 checkBoxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck)) // Click event will fire even if you use your keyboard
