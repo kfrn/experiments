@@ -17,3 +17,5 @@ To do:
 
 * How to click button to make it not fullscreen?
 * BUG: video won't start with a space press, although space works to pause/play once the video is already playing.
+
+Video player live on gh-pages [here](https://kfrn.github.io/experiments/js-experiments/html5-video-player/)
