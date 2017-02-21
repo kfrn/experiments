@@ -1,16 +1,13 @@
-/* TO-DO */
-// Add fullscreen button
-// Make default progress bar at 0%
-
-
 /* ELEMENTS */
-const player = document.querySelector('.player')
+let player = document.querySelector('.player')
 const video = player.querySelector('.viewer')
 const progress = player.querySelector('.progress')
 const progressBar = player.querySelector('.progress__filled')
 const toggle = player.querySelector('.toggle')
 const skipButtons = player.querySelectorAll('[data-skip]')
 const ranges = player.querySelectorAll('.player__slider')
+const fullscreenButton = player.querySelector('.fullscreen-button')
+let fullScreenVideo = player.requestFullscreen
 
 
 /* FUNCTIONS */
@@ -52,11 +49,26 @@ function scrub(e) {
   video.currentTime = scrubTime
 }
 
+function toggleFullScreen() {
+  if (!fullScreenVideo) {
+    ['mozRequestFullScreen',
+     'msRequestFullscreen',
+     'webkitRequestFullScreen'].forEach(req => {
+       fullScreenVideo = fullScreenVideo || player[req]
+     })
+    fullScreenVideo.call(player)
+  } else {
+    console.log("exit fullscreen here - but how?");
+    // fullScreenVideo.exitFullscreen()
+    // player.exitFullscreen() /* Console message -- Uncaught TypeError: player.exitFullscreen is not a function at HTMLButtonElement.toggleFullScreen */
+  }
+}
+
 
 /* EVENT LISTENERS */
 
-document.body.onkeyup = (e) => {
-  if (e.keyCode == 32) togglePlay()
+document.body.onkeyup = (e) => { // spacebar to toggle play/pause
+  if (e.keyCode === 32) togglePlay()
 }
 
 video.addEventListener('click', togglePlay)
@@ -76,3 +88,5 @@ progress.addEventListener('click', scrub)
 progress.addEventListener('mousemove', (e) => mousedown && scrub(e))
 progress.addEventListener('mousedown', () => mousedown = true)
 progress.addEventListener('mouseup', () => mousedown = false)
+
+fullscreenButton.addEventListener('click', toggleFullScreen)
