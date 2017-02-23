@@ -17,20 +17,18 @@ def parseData(media, is_digitized):
     not_digitized = []
     if is_digitized == True:
         for row in reader:
-            if row[3] == media:
-                if row[2]:
-                    digitized.append(row)
-                    writeFile(digitized, "digitized_%s.csv" %(media_filename))
+            if row[3] == media and row[2]:
+                digitized.append(row)
+                writeFile(digitized, "digitized_%s.csv" %(media_filename))
         print("%s items of media type '%s' are digitized." %(len(digitized), media))
         print("Results are output to 'digitized_%s.csv'." %(media_filename)) if len(digitized) >= 1 else print("No CSV output generated.")
 
     elif is_digitized == False:
         for row in reader:
-            if row[3] == media:
-                if not row[2]:
-                    not_digitized.append(row)
-                    writeFile(not_digitized, "undigitized_%s.csv" %(media_filename))
-        print("%s items of media type '%s' are not yet digitized." %(len(not_digitized), media))
+            if row[3] == media and not row[2]:
+                not_digitized.append(row)
+                writeFile(not_digitized, "undigitized_%s.csv" %(media_filename))
+        print("There are %s undigitized items of media type '%s'." %(len(not_digitized), media))
         print("Results are output to 'undigitized_%s.csv'." %(media_filename)) if len(not_digitized) >= 1 else print("No CSV output generated.")
     return
 
