@@ -49,21 +49,20 @@ function scrub(e) {
   video.currentTime = scrubTime
 }
 
+/* From https://developers.google.com/web/fundamentals/native-hardware/fullscreen/ */
 function toggleFullScreen() {
-  if (!fullScreenVideo) {
-    ['mozRequestFullScreen',
-     'msRequestFullscreen',
-     'webkitRequestFullScreen'].forEach(req => {
-       fullScreenVideo = fullScreenVideo || player[req]
-     })
-    fullScreenVideo.call(player)
-  } else {
-    console.log("exit fullscreen here - but how?");
-    // fullScreenVideo.exitFullscreen()
-    // player.exitFullscreen() /* Console message -- Uncaught TypeError: player.exitFullscreen is not a function at HTMLButtonElement.toggleFullScreen */
+  var doc = window.document;
+
+  var requestFullScreen = player.requestFullscreen || player.mozRequestFullScreen || player.webkitRequestFullScreen || player.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(player);
+  }
+  else {
+    cancelFullScreen.call(doc);
   }
 }
-
 
 /* EVENT LISTENERS */
 
