@@ -3,11 +3,11 @@
 import csv
 from slugify import slugify
 
-def writeFile(source, filename):
+def writeFile(array_of_results, filename):
     with open(filename, 'w') as result:
         writer = csv.writer(result)
         writer.writerow(header)
-        for row in source:
+        for row in array_of_results:
             writer.writerow(row)
 
 def parseData(media, is_digitized):
@@ -15,24 +15,33 @@ def parseData(media, is_digitized):
     media_filename = slugify(media) # "Film: 16mm" -> "film-16mm" etc
     digitized = []
     not_digitized = []
-    for row in reader:
-        if row[3] == media:
-            if is_digitized == True:
+    if is_digitized == True:
+        for row in reader:
+            if row[3] == media:
                 if row[2]:
-                    print(row)
                     digitized.append(row)
                     writeFile(digitized, "digitized_%s.csv" %(media_filename))
-            elif is_digitized == False:
+        print("%s items of media type '%s' are digitized." %(len(digitized), media))
+        print("Results are output to 'digitized_%s.csv'." %(media_filename)) if len(digitized) >= 1 else print("No CSV output generated.")
+
+    elif is_digitized == False:
+        for row in reader:
+            if row[3] == media:
                 if not row[2]:
-                    # print(row)
                     not_digitized.append(row)
                     writeFile(not_digitized, "undigitized_%s.csv" %(media_filename))
-    # print("%s items of type '%s' are digitized" %(len(digitized), media))
-    # print("%s items of type '%s' are not digitized" %(len(not_digitized), media))
+        print("%s items of media type '%s' are not yet digitized." %(len(not_digitized), media))
+        print("Results are output to 'undigitized_%s.csv'." %(media_filename)) if len(not_digitized) >= 1 else print("No CSV output generated.")
     return
 
 with open('csv_data.csv', 'r') as source:
     reader = csv.reader(source)
     header = next(reader)
-    # Call function
-    parseData("Film: 16mm", False)
+    parseData("VHS", False)
+    # parseData("VHS", True)
+    # parseData("Film: 16mm", False)
+    # parseData("Film: 16mm", True)
+    # parseData("3/4 inch videotape", False)
+    # parseData("3/4 inch videotape", True)
+    # parseData("D3", False)
+    # parseData("D3", True)
