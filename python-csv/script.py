@@ -19,7 +19,7 @@ def parseData(media, is_digitized):
         for row in reader:
             if row[3] == media and row[2]:
                 digitized.append(row)
-                writeFile(digitized, "digitized_%s.csv" %(media_filename))
+        writeFile(digitized, "digitized_%s.csv" %(media_filename))
         print("%s items of media type '%s' are digitized." %(len(digitized), media))
         print("Results are output to 'digitized_%s.csv'." %(media_filename)) if len(digitized) >= 1 else print("No CSV output generated.")
 
@@ -27,7 +27,7 @@ def parseData(media, is_digitized):
         for row in reader:
             if row[3] == media and not row[2]:
                 not_digitized.append(row)
-                writeFile(not_digitized, "undigitized_%s.csv" %(media_filename))
+        writeFile(not_digitized, "undigitized_%s.csv" %(media_filename))
         print("There are %s undigitized items of media type '%s'." %(len(not_digitized), media))
         print("Results are output to 'undigitized_%s.csv'." %(media_filename)) if len(not_digitized) >= 1 else print("No CSV output generated.")
     return
@@ -35,11 +35,11 @@ def parseData(media, is_digitized):
 with open('csv_data.csv', 'r') as source:
     reader = csv.reader(source)
     header = next(reader)
-    parseData("VHS", False)
+    # parseData("VHS", False)
     # parseData("VHS", True)
     # parseData("Film: 16mm", False)
     # parseData("Film: 16mm", True)
-    # parseData("3/4 inch videotape", False)
+    parseData("3/4 inch videotape", False)
     # parseData("3/4 inch videotape", True)
     # parseData("D3", False)
     # parseData("D3", True)
