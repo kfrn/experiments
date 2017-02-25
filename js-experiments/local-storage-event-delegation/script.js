@@ -46,7 +46,8 @@ function toggleDone(e) {
 function clearList(e) {
   e.preventDefault()
   localStorage.removeItem('items')
-  return itemsList.innerHTML = ''
+  populateList(items, itemsList)
+  itemsList.innerHTML = ''
 }
 
 function checkAll(e) {
