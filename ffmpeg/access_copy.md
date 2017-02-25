@@ -1,6 +1,6 @@
 ## Access derivative videos
 
-#### FFmpeg script approximating ADs we made in MediaEncoder at Archives NZ.
+#### Archives NZ.
 
 **Specs**:
 * H.264/AAC/MP4.
@@ -20,6 +20,7 @@ ffmpeg -i pres_master.mov \
 ```
 
 **Notes**:
+* Approximation of the ADs we made in MediaEncoder at Archives NZ.
 * CABAC is the [default entropy encoder](https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping) used in ffmpeg. To enable explicitly, add `-coder 1`. To disable, use `--no-cabac` or `-coder 0`.
 * GOP structure (M=3, N=14) not maintained. For info on setting i-frame & b-frame distance, see [here](https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping).
 * Not setting bitrate, crf, preset, etc. Using libx264 [default settings](https://trac.ffmpeg.org/wiki/Encode/H.264) of crf = 23 and preset = medium.
@@ -42,7 +43,31 @@ ffmpeg -i pres_master.mov \
    access_derivative_UNC.mp4
 ```
 
-<!-- ffmpeg -i pres_master.mov -c:v libx264 -pix_fmt yuv420p
-   -b:v 4872k -bufsize 4872k
-   -c:a libfdk_aac -b:a 128k
-   access_derivative_UNC.mp4 -->
+----
+
+#### California Audiovisual Preservation Project (CAVPP)
+
+**Specs**:
+* H.264/AAC/MP4
+* Bitrate: 1500 Kbps fixed
+* Video: 720x540, 29.97 fps, progressive, 4:3 AR
+  * 720x540 = ‘square-pixel SD’ for 525-line/‘NTSC’ video. Resized on the vertical dimension rather than the more common practice of resizing on the horizontal dimension (i.e. 640x480).
+    * Not what I would do. I'd resize horizontally to avoid resampling scanlines. Therefore the below script resamples to 640x480 ‘square-pixel SD’.
+* Audio: AAC, 160 Kbps, 44.1 kHz.
+* [Source (PDF)](https://calpreservation.org/wp-content/uploads/2013/10/CAVPPTargetAudioandVideo-Specs2013_IMLS.pdf)
+
+
+**Script**:  
+
+```
+ffmpeg -i pres_master.mov \
+   -s 640x480 -r 30000/1001 \
+   -c:v libx264 -pix_fmt yuv420p \
+   -b:v 1340k -bufsize 1340k \
+   -c:a libfdk_aac -ar 44100 -b:a 160k \
+   access_derivative_CAVPP.mp4
+```
+
+**Notes**:
+* Script resamples to 640x480 rather than 720x540. So doesn't actually follow the specs!
+* Script works, but need 720x480/29.97 source video to test properly!
