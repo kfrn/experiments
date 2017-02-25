@@ -1,3 +1,5 @@
+## Access derivative videos
+
 #### FFmpeg script approximating ADs we made in MediaEncoder at Archives NZ.
 
 **Specs**:
@@ -10,9 +12,10 @@
 **Script**:  
 
 ```
-ffmpeg -i pres_master.mov  
-   -c:v libx264 -pix_fmt yuv420p -profile:v high -level:v 5.0 -color_primaries bt470bg -color_trc gamma28 -colorspace bt470bg  
-   -c:a libfdk_aac -ar 48000 -b:a 192k  
+ffmpeg -i pres_master.mov \
+   -c:v libx264 -pix_fmt yuv420p -profile:v high -level:v 5.0 \
+   -color_primaries bt470bg -color_trc gamma28 -colorspace bt470bg \
+   -c:a libfdk_aac -ar 48000 -b:a 192k \
    access_derivative.mp4
 ```
 
@@ -20,3 +23,26 @@ ffmpeg -i pres_master.mov
 * CABAC is the [default entropy encoder](https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping) used in ffmpeg. To enable explicitly, add `-coder 1`. To disable, use `--no-cabac` or `-coder 0`.
 * GOP structure (M=3, N=14) not maintained. For info on setting i-frame & b-frame distance, see [here](https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping).
 * Not setting bitrate, crf, preset, etc. Using libx264 [default settings](https://trac.ffmpeg.org/wiki/Encode/H.264) of crf = 23 and preset = medium.
+  * To set bitrate of 2 Mbps, add `-b:v 1808k -bufsize 1808k` (2MB - 192K for audio).
+
+----
+
+#### UNC Chapel Hill, Wilson Round Library Special Collections
+
+**Specs**:
+* H.264, MP4 (5000kbps) [[source](http://library.unc.edu/wilson/sfc/audiovisual-preservation/technical-specifications/)]
+
+**Script**:  
+
+```
+ffmpeg -i pres_master.mov \
+   -c:v libx264 -pix_fmt yuv420p \
+   -b:v 4872k -bufsize 4872k \
+   -c:a libfdk_aac -b:a 128k \
+   access_derivative_UNC.mp4
+```
+
+<!-- ffmpeg -i pres_master.mov -c:v libx264 -pix_fmt yuv420p
+   -b:v 4872k -bufsize 4872k
+   -c:a libfdk_aac -b:a 128k
+   access_derivative_UNC.mp4 -->
