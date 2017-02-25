@@ -1,6 +1,9 @@
 const addItems = document.querySelector('.add-items')
 const itemsList = document.querySelector('.plates')
 const items = JSON.parse(localStorage.getItem('items')) || []
+const deleteButton = document.querySelector('.delete-all')
+const checkAllButton = document.querySelector('.check-all')
+const uncheckAllButton = document.querySelector('.uncheck-all')
 
 function addItem(e) {
   e.preventDefault()
@@ -40,7 +43,34 @@ function toggleDone(e) {
   populateList(items, itemsList)
 }
 
+function clearList(e) {
+  e.preventDefault()
+  localStorage.removeItem('items')
+  return itemsList.innerHTML = ''
+}
+
+function checkAll(e) {
+  e.preventDefault()
+  if (items.length !== 0) {
+    checkClearAll = items.map(item => item.done = true)
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList)
+  }
+}
+
+function uncheckAll(e) {
+  e.preventDefault()
+  if (items.length !== 0) {
+    checkClearAll = items.map(item => item.done = false)
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList)
+  }
+}
+
 addItems.addEventListener('submit', addItem)
 itemsList.addEventListener('click', toggleDone)
+deleteButton.addEventListener('click', clearList)
+checkAllButton.addEventListener('click',checkAll)
+uncheckAllButton.addEventListener('click', uncheckAll)
 
 populateList(items, itemsList)

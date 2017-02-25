@@ -5,7 +5,8 @@ Learning points:
 * Using `localStorage`
 * Persisting items
 
+Stretch goals (done):
+* Make buttons to clear the list, check all items, and uncheck all items
+
 To do:
 * Render single `<li>` (instead of whole list)
-* Make button to check/uncheck all
-* Make button to clear all items
