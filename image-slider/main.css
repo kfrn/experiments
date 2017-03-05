@@ -1,0 +1,79 @@
+/***** MAIN IMAGES *****/
+
+#contentContainer {
+    width: 550px; /* height & width the same as for individual pictures */
+    height: 350px;
+    border: 5px black solid;
+    overflow: hidden; /* hides any content outside boundaries of this element. Rest of the content is there, just clipped. */
+}
+
+#wrapper {
+  width: 2200px; /* i.e., 4 x 550px */
+  transform: translate3d(0, 0, 0); /* allows positioning wherever we want */
+  transition: transform .5s ease-in-out;
+}
+
+.content {
+    float: left; /* line up on same row */
+    width: 550px;
+    height: 350px;
+    white-space: normal; /* Defines how text in a paragraph will wrap. Added here for future-proofing; not actually in play. */
+    background-repeat: no-repeat;
+}
+
+#itemOne {
+  background-image: url(./imgs/PurpleRain_Prince_2.png)
+}
+
+#itemTwo {
+  background-image: url(./imgs/PurpleRain_Prince_3.png)
+}
+
+#itemThree {
+  background-image: url(./imgs/PurpleRain_Prince_4.png)
+}
+
+#itemFour {
+  background-image: url(./imgs/PurpleRain_Prince_1.png)
+}
+
+/***** NAVIGATION LINKS *****/
+
+#navLinks {
+    text-align: center;
+    width: 550px;
+}
+
+#navLinks ul {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+#navLinks ul li {
+    float: left;
+    text-align: center;
+    margin: 10px;
+    list-style: none;
+    cursor: pointer;
+    background-color: #CCCCCC;
+    padding: 5px;
+    border-radius: 50%;
+    border: black 5px solid;
+}
+
+#navLinks ul li:hover {
+    background-color: #FFFF00;
+}
+
+#navLinks ul li.active {
+    background-color: #333333;
+    color: #FFFFFF;
+    outline-width: 7px;
+}
+
+#navLinks ul li.active:hover {
+    background-color: #484848;
+    color: #FFFFFF;
+}
