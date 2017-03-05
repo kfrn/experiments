@@ -4,17 +4,13 @@ let activeLink = 0 // Stores position of content that is currently displayed
 
 function setClickedItem(e) {
     removeActiveLinks()
-
-    var clickedLink = e.target
+    const clickedLink = e.target
     activeLink = clickedLink.itemID
-
-    changePosition(clickedLink);
+    changePosition(clickedLink)
 }
 
 function removeActiveLinks() {
-    for (var i = 0; i < links.length; i++) {
-        links[i].classList.remove("active")
-    }
+  links.forEach(link => link.classList.remove('active'))
 }
 
 function changePosition(link) {
@@ -27,13 +23,9 @@ function changePosition(link) {
 }
 
 // Add event listeners
-for (var i = 0; i < links.length; i++) {
-    var link = links[i]
-    link.addEventListener('click', setClickedItem, false);
-    link.itemID = i
-}
+links.forEach( (link, idx) => {
+  link.addEventListener('click', setClickedItem, false)
+  link.itemID = idx
+})
 
 links[activeLink].classList.add("active")
-
-
-// links.forEach(link => link.addEventListener('click', ADDFN))
